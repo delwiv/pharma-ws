@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${REGISTRY-yoss}/yoss-websocket:${VERSION-alpha}
+    ports:
+      - '${PORT}:80'
+    depends_on:
+      - redis
+    links:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=development
+
+  redis:
+    image: redis
+    command: redis-server --requirepass ${REDIS_SECRET}
+    ports:
+      - '6379:6379'
