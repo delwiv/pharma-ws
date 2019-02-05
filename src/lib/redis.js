@@ -45,5 +45,9 @@ export const increment = async (key, max = 3, expire = 900) => {
   return attempts <= max
 }
 
-export default redis
+export const clientSaveSocket = (clientSessionId, socketId) =>
+  set(`clients::clientSessionId.socketId:${clientSessionId}`, socketId)
 
+export const clientGetSocket = clientSessionId => get(`clients::clientSessionId.socketId:${clientSessionId}`)
+
+export default redis

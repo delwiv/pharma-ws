@@ -1,9 +1,0 @@
-{
-  "NODE_ENV": "development",
-  "PORT": "50437",
-  "REDIS_HOST": "localhost",
-  "REDIS_PORT": "6379",
-  "REDIS_SECRET": "f28f5ab1-019e-4a05-8252-2980ef98de75",
-  "SESSION_MAX_AGE": 604800,
-  "SESSION_SECRET": "732c4229-4925-49cd-b3cb-53e4937f9e72"
-}
