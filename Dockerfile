@@ -1,6 +1,6 @@
 ## BUILDER
 
-FROM node:11.1.0-slim as builder
+FROM node:11.9.0-slim as builder
 
 LABEL maintainer "no-reply@yoss.com"
 
