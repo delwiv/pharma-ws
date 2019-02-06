@@ -3,7 +3,11 @@ jobs:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: '11.3.0'
+          versionSpec: '11.9.0'
+        displayName: 'Install Node.js'
+
+      - script: curl -o- -L https://yarnpkg.com/install.sh | bash
+        displayName: 'Install Yarn'
 
       - task: DockerCompose@0
         displayName: 'Start Redis in docker-compose'
@@ -11,18 +15,18 @@ jobs:
           action: 'Run a specific service'
           serviceName: redis
 
-      - script: 'cp now.build.json now.json'
-        displayName: 'Copy now.json'
+      # - script: 'cp now.build.json now.json'
+      #   displayName: 'Copy now.json'
 
-      - script: 'npm cache clean --force'
-        displayName: 'Clean NPM cache'
+      # - script: 'npm cache clean --force'
+      #   displayName: 'Clean NPM cache'
 
       - task: Npm@1
-        displayName: 'Npm install'
+        displayName: 'Yarn'
         inputs:
           verbose: false
 
-      - script: 'npm test'
+      - script: 'yarn test'
         displayName: 'Run unit tests'
 
       - task: kasunkodagoda.slack-notification.slack-notification-task.SlackNotification@5
@@ -62,7 +66,7 @@ jobs:
         inputs:
           azureSubscription: Shakhr
           azureContainerRegistry: '{"loginServer":"yossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-PRD-YOSS/providers/Microsoft.ContainerRegistry/registries/yossregistry"}'
-          imageName: 'yossapi:$(Build.BuildId)'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
           includeSourceTags: true
           includeLatestTag: true
 
@@ -72,7 +76,7 @@ jobs:
           azureSubscription: Shakhr
           azureContainerRegistry: '{"loginServer":"yossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-PRD-YOSS/providers/Microsoft.ContainerRegistry/registries/yossregistry"}'
           action: 'Push an image'
-          imageName: 'yossapi:$(Build.BuildId)'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
           includeSourceTags: true
           includeLatestTag: true
 
@@ -113,7 +117,7 @@ jobs:
         inputs:
           azureSubscription: Shakhr
           azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
-          imageName: 'yossapi:$(Build.BuildId)'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
           includeSourceTags: true
           includeLatestTag: true
 
@@ -123,7 +127,7 @@ jobs:
           azureSubscription: Shakhr
           azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
           action: 'Push an image'
-          imageName: 'yossapi:$(Build.BuildId)'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
           includeSourceTags: true
           includeLatestTag: true
 
