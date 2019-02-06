@@ -15,11 +15,8 @@ jobs:
           action: 'Run a specific service'
           serviceName: redis
 
-      - task: Npm@1
-        displayName: 'Yarn'
-        inputs:
-          verbose: false
-      - script: 'yarn'
+      - script: yarn install
+        displayName: 'Install dependencies'
 
       - script: 'yarn test'
         displayName: 'Run unit tests'

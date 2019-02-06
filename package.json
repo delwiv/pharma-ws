@@ -10,7 +10,8 @@
     "configure": "babel-node configure.js",
     "dev": "nodemon --ignore src/config.json --exec \"NODE_ENV=development yarn configure && babel-node src/index.js\"",
     "build": "babel src --out-dir build",
-    "start": "NODE_ENV=production yarn configure && node build/index.js"
+    "start": "NODE_ENV=production yarn configure && node build/index.js",
+    "test": "echo \"No tests lol\""
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
