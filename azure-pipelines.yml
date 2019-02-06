@@ -25,6 +25,7 @@ jobs:
         displayName: 'Yarn'
         inputs:
           verbose: false
+      - script: 'yarn'
 
       - script: 'yarn test'
         displayName: 'Run unit tests'
