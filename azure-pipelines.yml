@@ -6,9 +6,6 @@ jobs:
           versionSpec: '11.9.0'
         displayName: 'Install Node.js'
 
-      - script: curl -o- -L https://yarnpkg.com/install.sh | bash
-        displayName: 'Install Yarn'
-
       - task: DockerCompose@0
         displayName: 'Start Redis in docker-compose'
         inputs:
@@ -53,21 +50,21 @@ jobs:
     dependsOn: Testing
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
     steps:
-      # - task: Docker@1
-      #   displayName: 'Build an image'
-      #   inputs:
-      #     azureSubscriptionEndpoint: Shakhr
-      #     azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
-      #     imageName: 'yosswebsocket:$(Build.BuildId)'
+      - task: Docker@1
+        displayName: 'Build an image'
+        inputs:
+          azureSubscriptionEndpoint: Shakhr
+          azureContainerRegistry: 'devyossregistry.azurecr.io'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
 
-      # - task: Docker@1
-      #   displayName: 'Push an image'
-      #   inputs:
-      #     azureSubscriptionEndpoint: Shakhr
-      #     azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
-      #     command: 'Push an image'
-      #     imageName: 'yosswebsocket:$(Build.BuildId)'
-      #     includeSourceTags: true
+      - task: Docker@1
+        displayName: 'Push an image'
+        inputs:
+          azureSubscriptionEndpoint: Shakhr
+          azureContainerRegistry: 'devyossregistry.azurecr.io'
+          command: 'Push an image'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
+          includeSourceTags: true
 
       - task: kasunkodagoda.slack-notification.slack-notification-task.SlackNotification@5
         displayName: 'Post Slack Notification Success'
@@ -101,21 +98,21 @@ jobs:
     dependsOn: Testing
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev-release'))
     steps:
-      # - task: Docker@1
-      #   displayName: 'Build an image'
-      #   inputs:
-      #     azureSubscriptionEndpoint: Shakhr
-      #     azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
-      #     imageName: 'yosswebsocket:$(Build.BuildId)'
+      - task: Docker@0
+        displayName: 'Build an image'
+        inputs:
+          azureSubscriptionEndpoint: Shakhr
+          azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
 
-      # - task: Docker@1
-      #   displayName: 'Push an image'
-      #   inputs:
-      #     azureSubscriptionEndpoint: Shakhr
-      #     azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
-      #     command: 'Push an image'
-      #     imageName: 'yosswebsocket:$(Build.BuildId)'
-      #     includeSourceTags: true
+      - task: Docker@0
+        displayName: 'Push an image'
+        inputs:
+          azureSubscriptionEndpoint: Shakhr
+          azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
+          command: 'Push an image'
+          imageName: 'yosswebsocket:$(Build.BuildId)'
+          includeSourceTags: true
 
       - task: kasunkodagoda.slack-notification.slack-notification-task.SlackNotification@5
         displayName: 'Post Slack Notification Success'
