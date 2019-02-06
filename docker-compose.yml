@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: ${REGISTRY-yoss}/yoss-websocket:${VERSION-alpha}
     ports:
-      - '${PORT}:80'
+      - '8080:80'
     depends_on:
       - redis
     links:
@@ -14,11 +14,10 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - REDIS_SECRET=${REDIS_SECRET}
       - NODE_ENV=development
 
   redis:
     image: redis
-    command: redis-server --requirepass ${REDIS_SECRET}
+    command: redis-server
     ports:
       - '6378:6379'
