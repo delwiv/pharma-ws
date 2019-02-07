@@ -1,0 +1,22 @@
+{
+  "parameters": {
+    "registryName": {
+      "value": "yosswebsocket"
+    },
+    "acrName": {
+      "value": "devyossregistry"
+    },
+    "DD_TRACE_AGENT_HOSTNAME": {
+      "value": "40.113.154.161"
+    },
+    "DD_API_KEY": {
+      "value": "76da42e15c8d826667215146e3558a2e"
+    },
+    "SENTRY_DSN": {
+      "value": "https://2a4882ddc8394562935e6e8e59f26ed0@sentry.io/1325715"
+    },
+    "sku": {
+      "value": "S3"
+    }
+  }
+}

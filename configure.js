@@ -13,7 +13,7 @@ const config = {
   PORT: process.env.PORT,
   REDIS_HOST: process.env.REDIS_HOST,
   REDIS_PORT: process.env.REDIS_PORT,
-  REDIS_SECRET: process.env.REDIS_SECRET,
+  REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   SESSION_MAX_AGE: process.env.SESSION_MAX_AGE || 60 * 60 * 24 * 7,
   SESSION_SECRET: process.env.SESSION_SECRET || uuid(),
 }

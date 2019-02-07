@@ -1,6 +1,6 @@
 import ioredis from 'ioredis'
 
-import { REDIS_HOST, REDIS_PORT, REDIS_SECRET } from '../config.json'
+import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from '../config.json'
 
 const EXPIRE = 60 * 60 * 24 * 7 // 7 days
 
@@ -11,7 +11,7 @@ export const connect = async () => {
   redis = await ioredis.createClient({
     port: REDIS_PORT,
     host: REDIS_HOST,
-    password: REDIS_SECRET,
+    password: REDIS_PASSWORD || undefined,
   })
   console.log('Connected to redis')
 }
@@ -32,17 +32,6 @@ export const get = async (key, title = 'data') => {
 
 export const del = (key, title = 'data') => {
   return redis.hdel(key, title)
-}
-
-export const increment = async (key, max = 3, expire = 900) => {
-  const data = await get(key)
-  if (!data) {
-    await set(key, '1', expire)
-    return true
-  }
-  const attempts = parseInt(data, 10) + 1
-  await set(key, `${attempts}`, expire)
-  return attempts <= max
 }
 
 export const clientSaveSocket = (clientSessionId, socketId) =>
