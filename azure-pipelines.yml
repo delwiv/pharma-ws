@@ -96,7 +96,13 @@ jobs:
 
   - job: 'Build_Dev'
     dependsOn: Testing
-    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev-release'))
+    condition: and(
+      succeeded(), 
+      or(
+        eq(variables['build.sourceBranch'], 'refs/heads/develop'), 
+        eq(variables['build.sourceBranch'], 'refs/heads/dev-release')
+      )
+    )
     steps:
       - task: Docker@1
         displayName: 'Build an image'
