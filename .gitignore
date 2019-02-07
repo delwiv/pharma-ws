@@ -62,3 +62,4 @@ typings/
 dist
 .env
 src/config.json
+build
