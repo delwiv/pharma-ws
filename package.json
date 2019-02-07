@@ -1,5 +1,5 @@
 {
-  "name": "yoss_websocket",
+  "name": "yoss-websocket",
   "version": "0.0.1",
   "description": "Yoss WebSockets main server",
   "main": "dist/index.js",
