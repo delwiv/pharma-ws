@@ -53,14 +53,14 @@ jobs:
       - task: Docker@1
         displayName: 'Build an image'
         inputs:
-          azureSubscriptionEndpoint: Shakhr
+          azureSubscription: Shakhr
           azureContainerRegistry: 'devyossregistry.azurecr.io'
           imageName: 'yosswebsocket:$(Build.BuildId)'
 
       - task: Docker@1
         displayName: 'Push an image'
         inputs:
-          azureSubscriptionEndpoint: Shakhr
+          azureSubscription: Shakhr
           azureContainerRegistry: 'devyossregistry.azurecr.io'
           command: 'Push an image'
           imageName: 'yosswebsocket:$(Build.BuildId)'
@@ -98,18 +98,18 @@ jobs:
     dependsOn: Testing
     condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/dev-release'))
     steps:
-      - task: Docker@0
+      - task: Docker@1
         displayName: 'Build an image'
         inputs:
-          azureSubscriptionEndpoint: Shakhr
-          azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
+          azureSubscription: Shakhr
+          azureContainerRegistry: 'devyossregistry.azurecr.io'
           imageName: 'yosswebsocket:$(Build.BuildId)'
 
-      - task: Docker@0
+      - task: Docker@1
         displayName: 'Push an image'
         inputs:
-          azureSubscriptionEndpoint: Shakhr
-          azureContainerRegistry: '{"loginServer":"devyossregistry.azurecr.io", "id" : "/subscriptions/9e84de30-cdfb-4069-be06-e29f2f343102/resourceGroups/RG-EUR-FR-DEV-YOSS/providers/Microsoft.ContainerRegistry/registries/devyossregistry"}'
+          azureSubscription: Shakhr
+          azureContainerRegistry: 'devyossregistry.azurecr.io'
           command: 'Push an image'
           imageName: 'yosswebsocket:$(Build.BuildId)'
           includeSourceTags: true
