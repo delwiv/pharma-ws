@@ -33,6 +33,7 @@ shift $((OPTIND-1))
 #Check for parameters if some required parameters are missing
 if [[ -z "$templateFilePath" ]]; then
 	echo "Missing templateFilePath"
+  usage
 	exit 2;
 fi
 

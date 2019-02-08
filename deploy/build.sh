@@ -1,4 +1,5 @@
-acr_name=${ACR_NAME:-yossregistry}
+#acr_name=${ACR_NAME:-yossregistry}
+acr_name=devyossregistry
 
 #login to azure using your credentials
 az account show 1> /dev/null
