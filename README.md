@@ -1,1 +1,1 @@
-# yoss-websockets
+# pharma-websockets
