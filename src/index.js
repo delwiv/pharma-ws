@@ -1,12 +1,16 @@
 import http from 'http'
 import socketIo from 'socket.io'
 
-import configureClients from './clients'
-import configureServers from './servers'
-import { connect as connectRedis, get, set } from './lib/redis'
+import configureClients from './clients/index.js'
+import configureServers from './servers/index.js'
+import { connect as connectRedis, get, set } from './lib/redis.js'
 
-import { PORT } from './config.json'
-import { name, version } from '../package.json'
+import config from './config.json'
+import packageJson from '../package.json'
+
+console.log({ config })
+const { name, version } = packageJson
+const { PORT } = config
 
 const getVersion = (req, res) => res.json({ name, version })
 
@@ -16,12 +20,12 @@ const getStatus = async (req, res) => {
   if (val === 'value') {
     return res.json({
       service: 'redis',
-      status: 'OK',
+      status: 'OK'
     })
   }
   return res.json({
     service: 'redis',
-    status: 'KO',
+    status: 'KO'
   })
 }
 

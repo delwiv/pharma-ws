@@ -1,6 +1,8 @@
 import ioredis from 'ioredis'
 
-import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } from '../config.json'
+import config from '../config.json'
+
+const { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT } = config
 
 const EXPIRE = 60 * 60 * 24 * 7 // 7 days
 
@@ -11,13 +13,17 @@ export const connect = async () => {
   redis = await ioredis.createClient({
     port: REDIS_PORT,
     host: REDIS_HOST,
-    password: REDIS_PASSWORD || undefined,
+    password: REDIS_PASSWORD || undefined
   })
   console.log('Connected to redis')
 }
 
 export const set = async (key, data, expire = EXPIRE, title = 'data') => {
-  await redis.hmset(key, title, typeof data === 'object' ? JSON.stringify(data) : data)
+  await redis.hmset(
+    key,
+    title,
+    typeof data === 'object' ? JSON.stringify(data) : data
+  )
   await redis.expire(key, expire)
 }
 
@@ -37,6 +43,7 @@ export const del = (key, title = 'data') => {
 export const clientSaveSocket = (clientSessionId, socketId) =>
   set(`clients::clientSessionId.socketId:${clientSessionId}`, socketId)
 
-export const clientGetSocket = clientSessionId => get(`clients::clientSessionId.socketId:${clientSessionId}`)
+export const clientGetSocket = clientSessionId =>
+  get(`clients::clientSessionId.socketId:${clientSessionId}`)
 
 export default redis

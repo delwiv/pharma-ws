@@ -1,4 +1,4 @@
-import { clientGetSocket } from '../lib/redis'
+import { clientGetSocket } from '../lib/redis.js'
 
 export default io => {
   const servers = io.of('/servers')
@@ -9,6 +9,12 @@ export default io => {
       console.log({ sessionId, type, data })
       const clientSocketId = await clientGetSocket(sessionId)
       io.of('/clients').sockets[clientSocketId].emit(type, data)
+    })
+    socket.on('newOrder', async ({ sessionId }) => {
+      const clientSocketId = await clientGetSocket(sessionId)
+      console.log({ clientSocketId })
+      console.log({ client: io.of('/clients').sockets })
+      io.of('/clients').sockets[clientSocketId].emit('newOrder', 'lol')
     })
   })
 }

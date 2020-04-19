@@ -1,34 +1,27 @@
 {
-  "name": "yoss-websocket",
+  "name": "pharma-ws",
   "version": "0.0.1",
-  "description": "Yoss WebSockets main server",
+  "description": "Pharma WebSockets main server",
   "main": "dist/index.js",
+  "type": "module",
   "author": "Delwiv",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "configure": "babel-node configure.js",
-    "dev": "nodemon --ignore src/config.json --exec \"NODE_ENV=development yarn configure && babel-node src/index.js\"",
-    "build": "babel src --out-dir build",
-    "start": "NODE_ENV=production yarn configure && node build/index.js",
+    "configure": "node configure.js",
+    "dev": "nodemon --ignore src/config.json --exec \"NODE_ENV=development yarn configure && node --experimental-json-modules src/index.js\"",
+    "start": "NODE_ENV=production yarn configure && node --experimental-json-modules src/index.js",
     "test": "echo \"No tests lol\""
   },
   "dependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "ioredis": "^4.6.2",
-    "socket.io": "^2.2.0",
-    "uuid": "^3.3.2"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "ioredis": "^4.16.2",
+    "socket.io": "^2.3.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.13.0",
-    "eslint-plugin-sort-imports-es6-autofix": "^0.3.0",
-    "nodemon": "^1.18.9",
-    "prettier": "^1.16.4"
+    "nodemon": "^2.0.3",
+    "prettier-standard": "^16.2.1"
   }
 }

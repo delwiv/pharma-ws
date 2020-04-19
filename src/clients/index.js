@@ -1,4 +1,4 @@
-import { clientSaveSocket } from '../lib/redis'
+import { clientSaveSocket } from '../lib/redis.js'
 
 export default io => {
   const clients = io.of('/clients')
