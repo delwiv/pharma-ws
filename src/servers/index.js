@@ -10,11 +10,11 @@ export default io => {
       const clientSocketId = await clientGetSocket(sessionId)
       io.of('/clients').sockets[clientSocketId].emit(type, data)
     })
-    socket.on('newOrder', async ({ sessionId }) => {
-      const clientSocketId = await clientGetSocket(sessionId)
+    socket.on('newOrder', async ({ wsSessionId, order }) => {
+      console.log({ wsSessionId })
+      const clientSocketId = await clientGetSocket(wsSessionId)
       console.log({ clientSocketId })
-      console.log({ client: io.of('/clients').sockets })
-      io.of('/clients').sockets[clientSocketId].emit('newOrder', 'lol')
+      io.of('/clients').sockets[clientSocketId].emit('newOrder', { order })
     })
   })
 }
