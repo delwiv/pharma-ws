@@ -16,5 +16,9 @@ export default io => {
       console.log({ clientSocketId })
       io.of('/clients').sockets[clientSocketId].emit('newOrder', { order })
     })
+    socket.on('*', console.info)
+    socket.on('chatMessage', async ({ from, to, message }) => {
+      console.log('chatMessage', { from, to, message })
+    })
   })
 }

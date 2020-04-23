@@ -10,5 +10,10 @@ export default io => {
       await clientSaveSocket(sessionId, socket.id)
       ack()
     })
+
+    socket.on('*', () => console.info)
+    socket.on('chatMessage', async ({ from, to, message }) => {
+      console.log('chatMessage', { from, to, message })
+    })
   })
 }
